@@ -16,8 +16,8 @@ def ip2long(ip):
     return struct.unpack("!L", packedIP)[0]
 
 
-def generate_pac(proxy, pacfile='flora_pac.pac'):
-    results  = fetch_ip_data()
+def generate_pac(proxy, pacfile='flora_pac.pac', apnicfile=''):
+    results  = fetch_ip_data(apnicfile)
     rfile    = open(pacfile, 'w')
     results.insert(0, (ip2long('127.0.0.1'),   ip2long('255.0.0.0'),   0))
     results.insert(1, (ip2long('10.0.0.0'),    ip2long('255.0.0.0'),   0))
@@ -290,7 +290,7 @@ function FindProxyForURL(url, host) {
     };
 
     var dangerDomains = {
-     // 'apple.com' : 1,
+        'phobos.apple.com' : 1,
         'bit.ly' : 1,
         'dropbox.com' : 1,
         'dropboxstatic.com' : 1,
@@ -367,12 +367,12 @@ function FindProxyForURL(url, host) {
         return 'DIRECT';
     }
 
-    if (testDomain(host, safeDomains, true)) {
-        return 'DIRECT';
-    }
-
     if (testDomain(host, dangerDomains)) {
         return proxy;
+    }
+    
+    if (testDomain(host, safeDomains, true)) {
+        return 'DIRECT';
     }
 
     var strIp = dnsResolve(host);
@@ -412,11 +412,13 @@ def pac_server(port, pacfile='flora_pac.pac'):
     httpd.serve_forever()
 
 
-def fetch_ip_data():
+def fetch_ip_data(apnicfile=''):
     #fetch data from apnic
     print "Fetching data from apnic.net, it might take a few minutes, please wait..."
-    url=r'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
-  # url=r'http://flora/delegated-apnic-latest' #debug
+    if apnicfile == '':
+        url=r'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest'
+    else:
+        url=apnicfile
     data=urllib2.urlopen(url).read()
 
     cnregex=re.compile(r'apnic\|cn\|ipv4\|[0-9\.]+\|[0-9]+\|[0-9]+\|a.*',re.IGNORECASE)
@@ -476,7 +478,12 @@ if __name__ == '__main__':
                         dest    = 'pacfile',
                         default = 'flora_pac.pac',
                         nargs   = '?',
-                        help    = "Pac File Name [OPTIONAL], examples: flora_pac.pac")                        
+                        help    = "Pac File Name [OPTIONAL], examples: flora_pac.pac")
+    parser.add_argument('-a', '--apnicfile',
+                        dest    = 'apnicfile',
+                        default = '',
+                        nargs   = '?',
+                        help    = "APNIC File URL [OPTIONAL], examples: http://exmaple.com/apnic or file:///etc/apnic.txt")
     args = parser.parse_args()
-    generate_pac(args.proxy, args.pacfile)
+    generate_pac(args.proxy, args.pacfile, args.apnicfile)
     pac_server(int(args.port), args.pacfile)
