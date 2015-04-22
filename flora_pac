@@ -94,6 +94,7 @@ function FindProxyForURL(url, host) {
         'bdimg.com' : 1,
         'bdstatic.com' : 1,
         'bilibili.tv' : 1,
+        'bilibili.com' : 1,
         'ccb.com' : 1,
         'cctv.com' : 1,
         'cctvpic.com' : 1,
@@ -306,6 +307,7 @@ function FindProxyForURL(url, host) {
         't.co' : 1,
         'twimg.com' : 1,
         'twitter.com' : 1,
+        'v2ex.com' : 1,
         'ytimg.com' : 1,
         'youtube.com' : 1,
     };
