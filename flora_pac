@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-# Flora_Pac by @leaskh
-# www.leaskh.com, i@leaskh.com
+# Based on Flora_Pac by @leaskh
 # Based on chnroutes project (by Numb.Majority@gmail.com)
+# Based on Mono_Pac by @blackgear
+
+# edit by goodbest
 
 import re
 import urllib2
@@ -104,11 +106,12 @@ def generate_pac(proxy, pacfile='flora_pac.pac', apnicfile=''):
     masklist = json.dumps(masklist, separators=(',', ':')).replace('[]', '0')
 
     strLines = """
-// Flora_Pac by @leaskh
-// www.leaskh.com, i@leaskh.com
-// mod by @goodbest
+// Based on Flora_Pac by @leaskh
+// Based on chnroutes project (by Numb.Majority@gmail.com)
+// Based on Mono_Pac by @blackgear
+// edit by goodbest
 
-var proxy = __proxy__;
+var proxy = '__proxy__';
 
 var dangerDomains = {
     'phobos.apple.com' : 1,

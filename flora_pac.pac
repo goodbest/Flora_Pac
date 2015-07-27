@@ -1,9 +1,10 @@
 
-// Flora_Pac by @leaskh
-// www.leaskh.com, i@leaskh.com
-// mod by @goodbest
+// Based on Flora_Pac by @leaskh
+// Based on chnroutes project (by Numb.Majority@gmail.com)
+// Based on Mono_Pac by @blackgear
+// edit by goodbest
 
-var proxy = SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;
+var proxy = 'SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT';
 
 var dangerDomains = {
     'phobos.apple.com' : 1,
