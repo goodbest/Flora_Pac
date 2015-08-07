@@ -115,6 +115,17 @@ var proxy = '__proxy__';
 
 var dangerDomains = {
     'phobos.apple.com' : 1,
+    //'itunes.apple.com' : 1,
+    //'securemetrics.apple.com' : 1,
+    //'xp.apple.com' : 1,
+    'mzstatic.com' : 1,
+    'akam.net' : 1,
+    'akamai.net' : 1,
+    'akamaiedge.net' : 1,
+    'akamaihd.net' : 1,
+    'akadns.net' : 1,
+    'akamaistream.net' : 1,
+    //'apple.com' : 1,
     'bit.ly' : 1,
     'dropbox.com' : 1,
     'dropboxstatic.com' : 1,
@@ -124,9 +135,12 @@ var dangerDomains = {
     'fbcdn.net' : 1,
     'github.com' : 1,
     'gravatar.com' : 1,
+    'gmail.com' : 1,
+    'goo.gl' : 1,
     'google.co.jp' : 1,
     'google.com' : 1,
     'google.com.hk' : 1,
+    'googlemail.com' : 1,
     'googleusercontent.com' : 1,
     'gstatic.com' : 1,
     'imgur.com' : 1,
@@ -427,11 +441,11 @@ function FindProxyForURL(url, host) {
     var pos = 0;
 
     do {
-        if (safeDomains.hasOwnProperty(suffix)) {
-            return 'DIRECT';
-        }
         if (dangerDomains.hasOwnProperty(suffix)) {
             return proxy;
+        }
+        if (safeDomains.hasOwnProperty(suffix)) {
+            return 'DIRECT';
         }
         pos = host.indexOf(".", pos) + 1;
         suffix = host.substring(pos);
