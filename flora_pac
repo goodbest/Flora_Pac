@@ -126,6 +126,7 @@ var dangerDomains = {
     'akadns.net' : 1,
     'akamaistream.net' : 1,
     //'apple.com' : 1,
+    'bing.com' : 1,
     'bit.ly' : 1,
     'dropbox.com' : 1,
     'dropboxstatic.com' : 1,
